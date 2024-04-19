@@ -8,20 +8,30 @@ import HumanTree.HumanTree;
 public class Main {
     public static void main(String[] args) {
     
-        HumanTree newTree = new HumanTree("Putilov");
+        HumanTree<Human> newTree = new HumanTree<>("Putilov");
         Human yakov = new Human("Yakov", "Putilov", Sex.Male, LocalDate.of(1988, 7, 20));        
         newTree.addHuman(yakov);
+        Human yury = new Human("Yury", "Putilov", Sex.Male, LocalDate.of(2017, 10, 23));        
+        newTree.addHuman(yury);
+        Human stepan = new Human("Stepan", "Putilov", Sex.Male, LocalDate.of(2019, 4, 14));        
+        newTree.addHuman(stepan);
+        yakov.addChild(stepan);
+        yakov.addChild(yury);
+            // Filewriter newFilewriter = new Filewriter();
+            // newFilewriter.save( newTree, "newTree.txt");
+        
         System.out.println(newTree);
-        Filewriter newFilewriter = new Filewriter();
-        newFilewriter.save( newTree, "newTree.txt");
+        System.out.println(yakov.getChildList());
+
+
+
+        
     }
 
     // static void save(HumanTree humanTree, String fileAdr){
     //     Filewriter filewriter = new Filewriter();
 
-    //     // На семинаре показали такой метод, однако осталось недосказанным, 
-    //     // должен ли быть класс HumanTree Serialasable или writable. 
-    //     // Не понял где мы привязываем класс дерева к нужному интерфейсу
+    //     
     //     filewriter.save(humanTree, fileAdr);
 
     // }

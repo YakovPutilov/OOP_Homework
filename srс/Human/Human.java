@@ -2,9 +2,11 @@ package Human;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import HumanTree.TreeItem;
 
-public class Human implements Serializable, Comparable<Human> {
+public class Human implements Serializable, Comparable<Human>, TreeItem  {
     private String name;
     private String sName;
     private LocalDate bDate;
@@ -12,7 +14,7 @@ public class Human implements Serializable, Comparable<Human> {
     private Sex sex;
     private Human mother;
     private Human father;
-    private List<Human> childList;
+    private List<String> childList;
     
     
 
@@ -69,7 +71,7 @@ public class Human implements Serializable, Comparable<Human> {
     public Human getFather() {
         return father;
     }
-    public List<Human> getChildList() {
+    public List<String> getChildList() {
         return childList;
     }
     public String getFullName(){
@@ -77,7 +79,10 @@ public class Human implements Serializable, Comparable<Human> {
     }
 
     public void addChild(Human child){
-        childList.add(child);
+        if (childList == null){
+            childList = new ArrayList<>();
+        }
+        childList.add(child.getFullName());
     }
 
     

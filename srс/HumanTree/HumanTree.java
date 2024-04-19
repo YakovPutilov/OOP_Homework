@@ -5,13 +5,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import Human.Human;
 import Human.HumanIterator;
 
-public class HumanTree implements Serializable, Iterable<Human>{
+public class HumanTree<E extends TreeItem> implements Serializable, Iterable<E>{
 
     private String sName;
-    private List<Human> humans;
+    private List<E> humans;
     
     public HumanTree(String sName) {
         this.sName = sName;
@@ -21,23 +20,23 @@ public class HumanTree implements Serializable, Iterable<Human>{
     public String getSName(){
         return sName;
     }
-    public List<Human> getHumans() {
+    public List<E> getHumans() {
         return humans;
     }
 
 
-    public void addHuman(Human human){
+    public void addHuman(E human){
         humans.add(human);
        
     }
 
-    public StringBuilder findChildren(Human parent){
+    public StringBuilder findChildren(E parent){
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (Human human : humans){
-            for (Human child : parent.getChildList()) {
-                if (child.equals(human)) {
-                    stringBuilder.append(human.getName());
+        for (E human : humans){
+            for (String child : parent.getChildList()) {
+                if (child.equals(human.getFullName())) {
+                    stringBuilder.append(human.getFullName());
                 }
             }
             
@@ -45,15 +44,15 @@ public class HumanTree implements Serializable, Iterable<Human>{
     return stringBuilder;
     }
 
-    public List<Human> sortByName(HumanTree startTree){
-        List<Human> humanList = startTree.getHumans();     
-        humanList.sort(new HumanComparatorByName());
+    public List<E> sortByName(HumanTree<E> startTree){
+        List<E> humanList = startTree.getHumans();     
+        humanList.sort(new HumanComparatorByName<E>());
         return humanList;
     }
 
-    public List<Human> sortByAge(HumanTree startTree){
-        List<Human> humanList = startTree.getHumans();     
-        humanList.sort(new HumanComparatorByAge());
+    public List<E> sortByAge(HumanTree<E> startTree){
+        List<E> humanList = startTree.getHumans();     
+        humanList.sort(new HumanComparatorByAge<E>());
         return humanList;
     }
 
@@ -62,7 +61,7 @@ public class HumanTree implements Serializable, Iterable<Human>{
         StringBuilder sBuilder = new StringBuilder();
         sBuilder.append(sName);
         sBuilder.append("'s:\n");
-        for (Human human : humans) {
+        for (E human : humans) {
             
             sBuilder.append(human);
             sBuilder.append("\n");
@@ -71,7 +70,7 @@ public class HumanTree implements Serializable, Iterable<Human>{
         return sBuilder.toString();
     }
     @Override
-    public Iterator<Human> iterator() {
-        return new HumanIterator(humans);
+    public Iterator<E> iterator() {
+        return new HumanIterator<E>(humans);
     }
 }
